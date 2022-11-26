@@ -19,7 +19,7 @@ training_day = 1
 
 while current_result < target_result:
     training_day += 1
-    current_result *= progress_speed / 100
-    print(current_result)
+    current_result *= 1+(progress_speed / 100)
+    print(f'Результат на {training_day} день будет составлять {current_result:.2f}')
 
 print(f'При заданном уровне тренировок спортсмен достигнет заданного результата на {training_day} день')
