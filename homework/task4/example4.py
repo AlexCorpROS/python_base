@@ -5,5 +5,12 @@
 Результат: [23, 1, 3, 10, 4, 11] """
 
 user_list = [2, 2, 2, 7, 23, 1, 44, 44, 3, 2, 10, 7, 4, 11]
-user_set = set(user_list)
-print(user_set)
+
+result = [i for i in user_list if user_list.count(i) == 1]
+print(result)
+
+# Вывести только уникальные элементы списка
+""" user_set = sorted(set(user_list), key=user_list.index)
+print(user_set) """ 
+
+
