@@ -13,5 +13,6 @@ work_file.close()
 with open(r"test5ex1.txt") as text:    
     f_text = text.readlines() # вывод списком
     print(f_text)
-    for line in text: # вывод построчно
+    for line in f_text: # вывод построчно
         print(line)
+

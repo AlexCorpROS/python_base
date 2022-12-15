@@ -8,13 +8,13 @@
 with open(r"homework\task5\testex3.txt", 'r', encoding='utf-8') as text:
     f_text = text.readlines()
     total_income = 0
-    list = [] 
+    work_list = [] 
     for line in f_text:
         family, income = line.split()
         income = float(income)
         total_income += income
         if income < 20000:
-            list.append(family)
+            work_list.append(family)
     print(f'Средий доход сотрудников равен {total_income / len(f_text):.2f}')
-    print(f'Список сотрудников с доходом ниже 20000 {list}')      
+    print(f'Список сотрудников с доходом ниже 20000 {work_list}')      
 
