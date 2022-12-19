@@ -6,7 +6,7 @@
 Например: 20м*5000м*25кг*5см = 12500 т """
 
 class Road:
-    _weight = 25     # вес 1м2 полотна
+    _weight = 25     # вес 1м2 полотна толщиной 1 см
     _height = 5      # толщина полотна
     def __init__(self, length, width):
         self._length = length
