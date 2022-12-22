@@ -1,57 +1,132 @@
-from random import randint
+""" Реализовать программу работы с органическими клетками, состоящими из ячеек.
 
-class Matrix():
+Необходимо создать класс Клетка (Cell).
 
-    def __init__(self, lst):
-        self.lst = lst
-        self.row = len(self.lst)
-        self.col = len(self.lst[0])
+В его конструкторе инициализировать параметр (quantity),
+соответствующий количеству ячеек клетки (целое число).
 
-    def __str__(self):
-        mod_matrix = ''
-        for i in range(self.row):
-            for j in range(self.col):
-                mod_matrix +=  str(self.lst[i][j]) + '\t'
-            mod_matrix += '\n'
+В классе должны быть реализованы методы перегрузки арифметических операторов:
+сложение (add()),
+вычитание (sub()),
+умножение (mul()),
+деление (truediv()).
 
-        return mod_matrix
+Данные методы должны применяться только к клеткам и выполнять увеличение,
+уменьшение, умножение и целочисленное (с округлением до целого) деление клеток, соответственно.
 
-    def get_item(self, row, col):
-        try:
-            mod_matrix = self.lst[row][col]
-        except:
-            mod_matrix  = 0
+Сложение. Объединение двух клеток.
+При этом число ячеек общей клетки должно равняться сумме ячеек исходных двух клеток.
 
-        return mod_matrix 
+Вычитание. Участвуют две клетки.
+Операцию необходимо выполнять только если разность количества ячеек двух клеток больше нуля,
+иначе выводить соответствующее сообщение.
 
-    def __add__(self, second):
+Умножение. Создается общая клетка из двух.
+Число ячеек общей клетки определяется как произведение количества ячеек этих двух клеток.
 
-        new_lst = []
-        max_rows = max(self.row, second.row)
-        max_cols = max(self.col, second.col)
+Деление. Создается общая клетка из двух.
+Число ячеек общей клетки определяется как целочисленное деление количества ячеек этих двух клеток.
 
-        for i in range(max_rows):
-            new_lst.append([])
-            for j in range(max_cols):
-                new_lst[i].append(self.get_item(i, j) + second.get_item(i, j))
+** - По желанию: В классе необходимо реализовать метод make_order(), принимающий экземпляр класса и
+количество ячеек в ряду. Данный метод позволяет организовать ячейки по рядам.
+Метод должен возвращать строку вида **\n\n***...,
+где количество ячеек между \n равно переданному аргументу.
+Если ячеек на формирование ряда не хватает, то в последний ряд записываются все оставшиеся.
 
-        return Matrix(new_lst)
+Например, количество ячеек клетки равняется 12, количество ячеек в ряду — 5.
+Тогда метод make_order() вернет строку: **\n\n.
+Или, количество ячеек клетки равняется 15, количество ячеек в ряду — 5.
+Тогда метод make_order() вернет строку: **\n\n***.
+Подсказка: подробный список операторов для перегрузки доступен по ссылке.
 
-def get_matrix_1st(row, col):    
-    matrix_list = []
-    for i in range(row):
-        matrix_list.append([])
-        for j in range(col):
-            matrix_list[i].append(randint(0, 99))
-    return matrix_list
+Пример клиентского кода:
+print("Создаем объекты клеток")
+cell1 = Cell(30)
+cell2 = Cell(25)
 
-a = get_matrix_1st(3,3)
-print(f'Первый список списков{a}')
-b = get_matrix_1st(3,3)
-print(f'Второй список списков{a}')
-m1 = Matrix(a)
-print(f'Первая матрица \n{m1}')
-m2 = Matrix(b)
-print(f'Вторая матрица \n{m1}')
-m3 = m1 + m2
-print(f'Сумма двух матриц \n{m3}')
+cell3 = Cell(10)
+cell4 = Cell(15)
+
+print()
+
+print("Складываем")
+print(cell1 + cell2)
+
+print()
+
+print("Вычитаем")
+print(cell2 - cell1)
+print(cell4 - cell3)
+
+print()
+
+print("Умножаем")
+print(cell2 * cell1)
+
+print()
+
+print("Делим")
+print(cell1 / cell2)
+
+print()
+
+print("Организация ячеек по рядам")
+print(cell1.make_order(5))
+print(cell2.make_order(10))
+
+Результаты:
+Создаем объекты клеток
+
+Складываем
+Сумма клеток = (55)
+
+Вычитаем
+Разность отрицательна, поэтому операция не выполняется
+Разность клеток = (5)
+
+Умножаем
+Умножение клеток = (750)
+
+Делим
+Деление клеток = (1)
+
+Организация ячеек по рядам
+**\n *\n *\n *\n *\n *\n
+******\n ****\n **
+ """
+
+class Cell:
+    def __init__(self, value):
+        self.value = int(value)
+ 
+    def __add__(self, other):
+        return self.value + other.value
+
+    def __sub__(self, other):
+        sub = self.value - other.value
+        return sub if sub > 0 else 'Нельзя вычесть большую клетку из малой'
+
+    def __truediv__(self, other):
+        return self.value // other.value
+
+    def __mul__(self, other):
+        return self.value * other.value
+
+    def make_order(self, row):
+        result = ''
+        for i in range(int(self.value / row)):
+            result += '*' * row + '\n'
+        result += '*' * (self.value % row) + '\n'
+        return result
+
+size_cell = int(input('Введите размер первой клетки: '))
+size_cell2 = int(input('Введите размер второй клетки: '))
+cell = Cell(size_cell)
+cell_2 = Cell(size_cell2)
+print(f'Созданы клетки размером {cell.value} и {cell_2.value}')
+print(f'Сложение первой и второй клетки создают новую клетку размером {cell + cell_2}')
+print(f'Вычитание второй клетки из первой создают новую клетку размером {cell - cell_2}')
+print(f'Умножение первой и второй клетки создают новую клетку размером {cell * cell_2}')
+print(f'Деление первой клетки на вторую создают новую клетку размером {cell / cell_2}')
+user_num = int(input('Сколько ячеек должно быть в ряду: '))
+print(f'Визуализация первой клетки:\n{cell.make_order(user_num)}')
