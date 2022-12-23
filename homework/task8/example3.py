@@ -3,12 +3,20 @@
 в качестве делителя программа должна корректно обработать эту ситуацию и не завершиться с ошибкой. """
 
 class Div_Null(Exception):
-    def div_null(divisible, divider):
-        try:
-            return (divisible / divider)
-        except:
-            return ('Деление на ноль недопустимо. И точка')
+    def __init__(self, txt):
+        self.txt = txt
 
-user_num1 = float(input('Введите делимое: '))
-user_num2 = float(input('Введите делитель: '))
-print(Div_Null.div_null(user_num1, user_num2))
+def div_null():
+    try:
+        divisible = float(input('Введите делимое: '))
+        divider = float(input('Введите делитель: '))
+        if divider == 0:
+            raise Div_Null(f'На ноль делить нельзя. И точка')
+        else:
+            return divisible / divider
+    except ValueError:
+        return "Вы ввели не число"
+    except Div_Null as err:
+        return err
+
+print(div_null())
