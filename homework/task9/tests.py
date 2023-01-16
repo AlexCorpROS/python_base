@@ -1,5 +1,4 @@
 import unittest
-from random import randint
 from test_scripts import *
 
 class TestUserCode(unittest.TestCase):
@@ -41,8 +40,8 @@ class TestUserCode(unittest.TestCase):
     def test_get_total_income(self):
         self.assertEqual(Position('Ivan', 'Losev', 2 , 4 , 6).get_total_income(), 10)
     
-    """ def test_raises(self):
-        self.assertRaises(Div_Null,div_null, 1, 0 )      """
+    def test_raises(self):
+        self.assertRaises(Div_Null,div_null, 1, 0 )     
     
 if __name__ == '__main__':
     unittest.main()

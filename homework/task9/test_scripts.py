@@ -63,16 +63,9 @@ class Div_Null(Exception):
     def __init__(self, txt):
         self.txt = txt
 
-def div_null():
-    try:
-        divisible = float(input('Введите делимое: '))
-        divider = float(input('Введите делитель: '))
-        if divider == 0:
-            raise Div_Null(f'На ноль делить нельзя. И точка')
-        else:
-            return divisible / divider
-    except ValueError:
-        return "Вы ввели не число"
-    except Div_Null as err:
-        return err
+def div_null(divisible, divider):           
+    if divider == 0:
+         raise Div_Null(f'На ноль делить нельзя. И точка')
+    else:
+        return divisible / divider
 
